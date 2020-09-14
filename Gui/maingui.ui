@@ -17,7 +17,7 @@
    <item>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+      <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QPushButton" name="serialBtn">
          <property name="text">
@@ -32,10 +32,20 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="testBtn">
+         <property name="text">
+          <string>测试</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
       <widget class="QStackedWidget" name="stackedWidget">
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
        <widget class="QWidget" name="page"/>
        <widget class="QWidget" name="page_2"/>
       </widget>
