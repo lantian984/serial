@@ -33,8 +33,8 @@ void PlotDataPack::plotDatoPackUnPackSlots(QByteArray value)
     Axis axis(x_axis,y_axis,z_axis);
     axis.setIndex(index);
     emit plotDatoUpdateSignels(axis);
-    qDebug() << "PlotDataPack" << value;
-    qDebug()<<"PlotDataPack ID:" <<QThread::currentThreadId();
+    //qDebug() << "PlotDataPack" << value;
+    //qDebug()<<"PlotDataPack ID:" <<QThread::currentThreadId();
 }
 
 

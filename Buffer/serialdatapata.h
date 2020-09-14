@@ -5,7 +5,7 @@
 #include <QByteArray>
 #include <QDebug>
 #include <QThread>
-
+#include <QTimer>
 class SerialDataPata : public QObject
 {
     Q_OBJECT
@@ -37,6 +37,7 @@ public slots:
 private:
     static SerialDataPata* _serialDataPataObj;
     QByteArray* dataByteArray;
+    QTimer* timer;
 };
 
 #define serialDataPata (SerialDataPata::construction())
