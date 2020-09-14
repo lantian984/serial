@@ -7,7 +7,7 @@
 #include "SerialTool/serialtool.h"
 #include "Buffer/serialdatapata.h"
 #include "Buffer/plotdatapack.h"
-
+#include "Gui/testgui.h"
 namespace Ui {
 class MainGui;
 }
@@ -25,11 +25,16 @@ private slots:
 
     void on_plotBtn_clicked();
 
+
+
+    void on_testBtn_clicked();
+
 private:
     Ui::MainGui *ui;
     QThread* serialToolthread;
     QThread* serialDatathread;
     QThread* plotDatathread;
+
 };
 
 #endif // MAINGUI_H

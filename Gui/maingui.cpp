@@ -12,7 +12,7 @@ static void initObjects(void)
     serialTool->construction();
     serialDataPata->construction();
     plotDataPack->construction();
-
+    testGui->construction();
 }
 /********************************************************************************
  * 功能： 结束任务
@@ -25,6 +25,7 @@ static void exitTask(void)
    deletePlotGui();
    deleteSerialGui();
    deleteSerialDataPata();
+   testGui->construction();
 }
 
 
@@ -41,15 +42,17 @@ MainGui::MainGui(QWidget *parent) :
     serialDatathread = new QThread;
     plotDatathread = new QThread;
 
+
     initObjects();
 
     ui->stackedWidget->addWidget(serialGui);
     ui->stackedWidget->addWidget(plotGui);
+    ui->stackedWidget->addWidget(testGui);
     ui->stackedWidget->setCurrentWidget(serialGui);
 
-    /*serialTool->moveToThread(serialToolthread);
-    serialDataPata->moveToThread(serialDatathread);
-    plotDataPack->moveToThread(plotDatathread);*/
+    //serialTool->moveToThread(serialToolthread);
+    //serialDataPata->moveToThread(serialDatathread);
+    //plotDataPack->moveToThread(plotDatathread);
      //信号与槽绑定
 
     connect(serialGui,&SerialGui::serialGuiSerialOpenSinles,serialTool,&SerialTool::serialToolSerialOpenSlos);
@@ -68,15 +71,22 @@ MainGui::MainGui(QWidget *parent) :
 
     connect(plotDataPack,&PlotDataPack::plotDatoUpdateSignels,plotGui,&PlotGui::plotGuiUpdateSlots);
 
-    /*serialToolthread->start();
-    serialDatathread->start();
-    plotDatathread->start();*/
+    connect(testGui,&TestGui::testGuiXYZSignals,serialTool,&SerialTool::serialToolWrite);
+
+
+    connect(serialDatathread,&QThread::finished,serialDataPata,&QObject::deleteLater);
+
+    //serialToolthread->start();
+    //serialDatathread->start();
+    //plotDatathread->start();
 }
 
 
 MainGui::~MainGui()
 {
     exitTask();
+    serialDatathread->wait();
+    serialDatathread->quit();
     delete serialToolthread;
     delete ui;
 }
@@ -90,4 +100,10 @@ void MainGui::on_serialBtn_clicked()
 void MainGui::on_plotBtn_clicked()
 {
      ui->stackedWidget->setCurrentWidget(plotGui);
+}
+
+
+void MainGui::on_testBtn_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(testGui);
 }
