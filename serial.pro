@@ -29,6 +29,7 @@ SOURCES += \
         Buffer/plotdatapack.cpp \
         Gui/plotgui.cpp \
         Gui/serialgui.cpp \
+        Gui/testgui.cpp \
         SerialTool/serialtool.cpp \
         main.cpp \
         Gui\maingui.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     Buffer/plotdatapack.h \
     Gui/plotgui.h \
         Gui/serialgui.h \
+    Gui/testgui.h \
         Gui\maingui.h \ \
     SerialTool/serialtool.h \
     Buffer\serialdatapata.h \
@@ -48,6 +50,7 @@ HEADERS += \
 FORMS += \
     Gui/plotgui.ui \
         Gui/serialgui.ui \
+    Gui/testgui.ui \
         Gui\maingui.ui \
 
 # Default rules for deployment.
