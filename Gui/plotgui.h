@@ -68,6 +68,9 @@ private:
     QChart *chart;
 
     QList<Axis> axisList;
+    QList<QPointF> x_List;
+    QList<QPointF> y_List;
+    QList<QPointF> z_List;
     bool suspend = false;
 };
 

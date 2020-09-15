@@ -127,7 +127,12 @@ void PlotGui::creatPlot()
 
     //ui->plotView->show();
 
+    for(int i = 0; i < 100;i++){
+      seriesX->append(QPointF(0,0));
+      seriesY->append(QPointF(0,0));
+      seriesZ->append(QPointF(0,0));
 
+    }
 
 }
 
@@ -151,31 +156,30 @@ bool PlotGui::getSuspendStatus()
 
 void PlotGui::plotGuiUpdateSlots(Axis axis)
 {
-    if(axisList.length() >= 100){
-        axisList.removeFirst();
+
+    if(x_List.length() >= 100){
+        x_List.removeFirst();
+        y_List.removeFirst();
+        z_List.removeFirst();
     }
-
-    axisList.append(axis);
-
+    x_List.append(QPointF(axis.getIndex(),axis.getXAxis()));
+    y_List.append(QPointF(axis.getIndex(),axis.getYAxis()));
+    z_List.append(QPointF(axis.getIndex(),axis.getZAxis()));
     if(getSuspendStatus() != true){
-        if(axisList.length() >= 100){
-            xAxis->setRange(axisList.first().getIndex(),axisList.last().getIndex());
+        if(x_List.length() >= 100){
+            xAxis->setRange(x_List.first().x(),x_List.last().x());
         }else {
-            xAxis->setRange(0,axisList.last().getIndex());
-        }
-        seriesX->clear();
-        seriesY->clear();
-        seriesZ->clear();
-          for(int i = 0; i < axisList.length();i++){
-            seriesX->append(QPointF(axisList.value(i).getIndex(),axisList.value(i).getXAxis()));
-            seriesY->append(QPointF(axisList.value(i).getIndex(),axisList.value(i).getYAxis()));
-            seriesZ->append(QPointF(axisList.value(i).getIndex(),axisList.value(i).getZAxis()));
-            //seriesZ->append(QPointF(t,axisList.at(i)));
-            //qDebug() << "长度:" << axisList.length();
-        }
-        qDebug() << "图像数据 " << "t" << axisList.last().getIndex() << "X_axis" <<  axisList.last().getXAxis()
-                 <<"Y_axis"  <<  axisList.last().getYAxis() <<"Z_axis" <<  axisList.last().getZAxis();
+            xAxis->setRange(0,x_List.last().x());
 
+        }
+
+        //qDebug() << "长度 "  << x_List.length();
+        seriesX->replace(x_List);
+        seriesY->replace(y_List);
+        seriesZ->replace(z_List);
+        /*qDebug() << "图像数据 " << "t" << axisList.last().getIndex() << "X_axis" <<  axisList.last().getXAxis()
+                 <<"Y_axis"  <<  axisList.last().getYAxis() <<"Z_axis" <<  axisList.last().getZAxis();
+        */
     }
 
 }
