@@ -50,9 +50,9 @@ MainGui::MainGui(QWidget *parent) :
     ui->stackedWidget->addWidget(testGui);
     ui->stackedWidget->setCurrentWidget(serialGui);
 
-    //serialTool->moveToThread(serialToolthread);
-    //serialDataPata->moveToThread(serialDatathread);
-    //plotDataPack->moveToThread(plotDatathread);
+    serialTool->moveToThread(serialToolthread);
+    serialDataPata->moveToThread(serialDatathread);
+    plotDataPack->moveToThread(plotDatathread);
      //信号与槽绑定
 
     connect(serialGui,&SerialGui::serialGuiSerialOpenSinles,serialTool,&SerialTool::serialToolSerialOpenSlos);
@@ -76,9 +76,9 @@ MainGui::MainGui(QWidget *parent) :
 
     connect(serialDatathread,&QThread::finished,serialDataPata,&QObject::deleteLater);
 
-    //serialToolthread->start();
-    //serialDatathread->start();
-    //plotDatathread->start();
+    serialToolthread->start();
+    serialDatathread->start();
+    plotDatathread->start();
 }
 
 
