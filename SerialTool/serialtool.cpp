@@ -128,11 +128,17 @@ void SerialTool::serialToolSerialOpenSlos(QString port, QString baudRate,QString
 
 void SerialTool::serialToolSerialCloseSlos()
 {
+    if(serial == nullptr){
+        return;
+    }
     serial->close();
 }
 
 void SerialTool::serialToolWrite(QString value)
 {
+    if(serial == nullptr){
+        return;
+    }
 
     if(getHexFlag() != true){
         serial->write(value.toUtf8());
