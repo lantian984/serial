@@ -83,9 +83,9 @@ void PlotGui::creatPlot()
     seriesY->setName("Y:");
     seriesY->setUseOpenGL(true);
     seriesY->setColor(QColor(255,0,0,255));
-    seriesY->setPointsVisible(true);
-    seriesY->setPointLabelsVisible(false);
-    seriesY->setPointLabelsFormat("@xPoint,@yPoint");
+    //seriesY->setPointsVisible(true);
+    //seriesY->setPointLabelsVisible(false);
+    //seriesY->setPointLabelsFormat("@xPoint,@yPoint");
     //connect(seriesY,&QSplineSeries::hovered,this,&Plot::yHoveredHandle);
 
     seriesZ->setName("Z:");
@@ -108,6 +108,9 @@ void PlotGui::creatPlot()
 
     chart->addAxis(xAxis, Qt::AlignBottom);
     chart->addAxis(yAxis, Qt::AlignLeft);
+
+    chart->legend()->setVisible(true);                  //设置图例
+    chart->legend()->setAlignment(Qt::AlignRight);
 
     seriesX->attachAxis(xAxis);
     seriesX->attachAxis(yAxis);
