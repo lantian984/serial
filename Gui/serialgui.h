@@ -65,6 +65,7 @@ signals:
     void serialGuiSerialCloseSinles();
     void serialGuiSerialSendSignals(QString value);
     void serialGuiSerialHexSignals(bool value);
+    void serialGuiSerialOpenResultSignals(bool value);
 private slots:
     void on_serialOpen_clicked();
 

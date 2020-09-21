@@ -50,10 +50,11 @@ MainGui::MainGui(QWidget *parent) :
     ui->stackedWidget->addWidget(testGui);
     ui->stackedWidget->setCurrentWidget(serialGui);
 
-    serialTool->moveToThread(serialToolthread);
+    /*serialTool->moveToThread(serialToolthread);
     serialDataPata->moveToThread(serialDatathread);
-    plotDataPack->moveToThread(plotDatathread);
+    plotDataPack->moveToThread(plotDatathread);*/
      //信号与槽绑定
+
 
     connect(serialGui,&SerialGui::serialGuiSerialOpenSinles,serialTool,&SerialTool::serialToolSerialOpenSlos);
     connect(serialGui,&SerialGui::serialGuiSerialCloseSinles,serialTool,&SerialTool::serialToolSerialCloseSlos);
@@ -62,6 +63,8 @@ MainGui::MainGui(QWidget *parent) :
 
 
     connect(serialTool,&SerialTool::serialToolSerialOpenResult,serialGui,&SerialGui::serialGuiSerialOpenResultSlots);
+    connect(serialTool,&SerialTool::serialToolSerialOpenResult,this,&MainGui::updataBtnStatusSlots);
+    connect(serialTool,&SerialTool::serialToolSerialCloseResult,this,&MainGui::updataBtnStatusSlots);
     connect(serialTool,&SerialTool::serialToolSreialReadResult,serialDataPata,&SerialDataPata::serialDataPataAppendSlost);
     connect(serialTool,&SerialTool::serialToolSreialReadResult,serialGui,&SerialGui::serialGuiShowText);
 
@@ -76,9 +79,13 @@ MainGui::MainGui(QWidget *parent) :
 
     connect(serialDatathread,&QThread::finished,serialDataPata,&QObject::deleteLater);
 
-    serialToolthread->start();
+    /*serialToolthread->start();
     serialDatathread->start();
-    plotDatathread->start();
+    plotDatathread->start();*/
+
+
+    ui->plotBtn->setEnabled(false);
+    ui->testBtn->setEnabled(false);
 }
 
 
@@ -106,4 +113,15 @@ void MainGui::on_plotBtn_clicked()
 void MainGui::on_testBtn_clicked()
 {
     ui->stackedWidget->setCurrentWidget(testGui);
+}
+
+void MainGui::updataBtnStatusSlots(bool value)
+{
+    if(value == true){
+        ui->plotBtn->setEnabled(true);
+        ui->testBtn->setEnabled(true);
+    }else{
+        ui->plotBtn->setEnabled(false);
+        ui->testBtn->setEnabled(false);
+    }
 }

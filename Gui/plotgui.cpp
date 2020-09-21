@@ -60,6 +60,7 @@ void PlotGui::creatPlot()
 
     // 次刻度和次网格线设置
     xAxis->setMinorTickCount(1);
+    yAxis->setMinorTickCount(1);
     //xAxis->setMinorGridLineColor(Qt::color1);
 
 

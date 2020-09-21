@@ -95,9 +95,6 @@ void SerialGui::on_serialOpen_clicked()
     setDataBit(ui->serialDataBit->currentText());   //设置数据位
     setStopBit(ui->serialStopBit->currentText());   //设置校验
 
-    ui->serialOpen->setEnabled(false);
-    ui->serialClose->setEnabled(true);
-
     emit serialGuiSerialOpenSinles(getPort(),getBautdRate(),getParit(),getStopBit(),getDataBit());
 }
 
@@ -112,7 +109,12 @@ void SerialGui::serialGuiSerialOpenResultSlots(bool value)
 {
     if(value != true){
          QMessageBox::about(NULL, "提示", "无法打开串口！");
+         ui->serialOpen->setEnabled(true);
+         ui->serialClose->setEnabled(false);
+         return;
     }
+    ui->serialOpen->setEnabled(false);
+    ui->serialClose->setEnabled(true);
     qDebug()<<"gui线程 ID:" <<QThread::currentThreadId();
 }
 
@@ -142,3 +144,4 @@ void SerialGui::on_hexCBox_stateChanged(int arg1)
         emit serialGuiSerialHexSignals(false);
     }
 }
+

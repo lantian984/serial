@@ -10,7 +10,7 @@ SerialDataPata::SerialDataPata(QObject *parent) : QObject(parent)
     dataByteArray = new QByteArray();
     timer = new QTimer();
     connect(timer,&QTimer::timeout,this,&SerialDataPata::serialDataPataUnpakeSlost);
-    //timer->start(5);
+    timer->start(1);
 }
 
 SerialDataPata::~SerialDataPata()
@@ -33,7 +33,7 @@ void SerialDataPata::serialDataPataAppendSlost(QByteArray value)
     dataByteArray->append(value);   //追加到缓存区
     //qDebug() << "serialDataPata :"<< dataByteArray->data();
     //qDebug()<<"serialDataPata ID:" <<QThread::currentThreadId();
-    serialDataPataUnpakeSlost();
+    //serialDataPataUnpakeSlost();
 
 }
 
@@ -44,7 +44,7 @@ void SerialDataPata::serialDataPataUnpakeSlost()
 {
     //未找到包头直接退出
     if(!dataByteArray->contains('{')){
-        //timer->start(5);
+        timer->start(5);
         return;
     }
     //找到包头
@@ -56,7 +56,7 @@ void SerialDataPata::serialDataPataUnpakeSlost()
    }
    //未找到包尾
    if(!dataByteArray->contains('}')){
-        //timer->start(5);
+        timer->start(5);
         return;
    }
    //找到包尾
@@ -64,11 +64,11 @@ void SerialDataPata::serialDataPataUnpakeSlost()
 
     //提取一个完整包的数据
    QByteArray data = dataByteArray->mid(indexBefore,indexLater - indexBefore + 1);
-   //qDebug() << "找到有效数据:" << QString(data);
+   qDebug() << "找到有效数据:" << QString(data);
    //提取后删除原来缓存区的数据
    dataByteArray->remove(indexBefore,indexLater - indexBefore +1);
    //qDebug()<<"serialDataPata ID:" <<QThread::currentThreadId();
    emit serialDataPataSendSignal(data);
    qDebug()<<"缓冲区字节:" << dataByteArray->count();
-    //timer->start(5);
+   timer->start(4);
 }

@@ -43,6 +43,7 @@ signals:
 
     void finished();//完成信号
     void serialToolSerialOpenResult(bool value);
+    void serialToolSerialCloseResult(bool value);
     void serialToolSreialReadResult(QByteArray value);
 public slots:
     void serialToolSerialOpenSlos(QString port, QString baudRate, QString parit, QString stopBit, QString dataBit);

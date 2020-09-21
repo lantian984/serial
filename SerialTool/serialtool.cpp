@@ -132,6 +132,7 @@ void SerialTool::serialToolSerialCloseSlos()
         return;
     }
     serial->close();
+    emit serialToolSerialCloseResult(false);
 }
 
 void SerialTool::serialToolWrite(QString value)

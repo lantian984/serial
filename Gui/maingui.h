@@ -28,7 +28,7 @@ private slots:
 
 
     void on_testBtn_clicked();
-
+    void updataBtnStatusSlots(bool value);
 private:
     Ui::MainGui *ui;
     QThread* serialToolthread;
